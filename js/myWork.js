@@ -435,7 +435,8 @@ $(document).on('mouseout', '.appElement', function(){
 
 
 function addText() {
-	$("#container").append("<div class='appElement'><div class='innerBox'><span class='newText'>"+addLineBreaks($('#adText').val())+"</span></div></div>");	
+	alert("coming");
+	$("#container").prepend("<div class='appElement'><div class='innerBox'><span class='newText'>"+addLineBreaks($('#adText').val())+"</span></div></div>");	
 };
 
 function editText() {
