@@ -460,7 +460,7 @@ function readURL(input) {
             
         reader.onload = function (e) {
 			$("#container").append("<div class='appElement'><div class='innerBox'><img src='"+e.target.result+"' /></div></div>");
-			$('.appElement').draggable({containment: "parent"});
+			$('.appElement').draggable({});
         }         
         reader.readAsDataURL(input.files[0]);
     }
