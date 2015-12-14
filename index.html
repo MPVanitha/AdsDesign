@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+<link href="style/style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="style/jquery.ui.resizable.css" />
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/jquery.ui.rotatable.js"></script>
+<script type="text/javascript" src="js/jquery.ui.slider.js"></script>
+<script type="text/javascript" src="js/html2canvas.js"></script>
+<script type="text/javascript" src="js/myWork.js"></script>
+</head>
+<body>
+	<div class="main_wrapper">
+		<div id="wrapper">
+			<section id="content" class="clearfix">
+        		<div class="narrowcolumn" style="display:inline-block;white-space:nowrap;">
+                	<div class="container">
+                    	<h2>CSS3 Styles</h2>
+						</br>
+                        <div class="subContainer eheight clearfix" style="text-align:center;">                        	
+                            <div id="transformLoad"></div>		
+							</br>
+							<input type='file' id="imgInp" /> </br><br>
+							<input type="button" value="Save as image" id="btnSave" />							
+                        </div>			
+                    </div>	
+					<div class="container">
+                    	<h2>Font</h2>
+                        <div class="subContainer eheight clearfix" style="text-align:center;">                        	
+                            <div id="fontLoad"></div>	
+							<br>							
+							<textarea id="adText" rows="10" placeholder="Please add your text here"></textarea></br></br>
+							<input type="button" id="adTextButton" class="fontButton" onclick="addText();" value="Add" />
+							<input type="button" id="editTextButton" class="fontButton" onclick="editText();" value="Update" />
+                        </div>
+                    </div>					
+                </div>
+                <div id="container" class="outerContent">
+                        <div id="previewArea" class="appElement" style="width: 150px; height: 50px;">
+							<div class="innerBox" id="test"><span class="newText">CSS3.0 Transform</span></div>
+						</div>
+						<div id="previewArea1" class="appElement" style="width: 150px; height: 150px;">				
+							<div class="innerBox"><img src="images/earth.png"/></div>
+						</div>
+                </div>
+				<div class="fontfaceview"></div>
+			</section>				
+			<div id="canvas"></div>
+		</div>		
+	</div>
+
+
+</body>
+</html>
