@@ -20,10 +20,8 @@
                     	<h2>CSS3 Styles</h2>
 						</br>
                         <div class="subContainer eheight clearfix" style="text-align:center;">                        	
-                            <div id="transformLoad"></div>		
-							</br>
-							<input type='file' id="imgInp" /> </br><br>
-							<input type="button" value="Save as image" id="btnSave" />							
+                            <div id="transformLoad"></div></br>
+							<input type="button" value="Save as image" id="btnSave" />											
                         </div>			
                     </div>	
 					<div class="container">
@@ -35,14 +33,23 @@
 							<input type="button" id="adTextButton" class="fontButton" onclick="addText();" value="Add" />
 							<input type="button" id="editTextButton" class="fontButton" onclick="editText();" value="Update" />
                         </div>
-                    </div>					
+                    </div>		
+					<div class="container">
+                    	<h2>Layers</h2>
+                        <div class="subContainer eheight clearfix" style="text-align:center;">     
+							Add Image to design : <input type='file' id="imgInp" /> </br><br>	
+							Change Background Image : <input type='file' id="backImgInp" /> </br><br>
+							<input type="button" value="Bring layer up" onclick="layerUp();" /> &nbsp;&nbsp;&nbsp;
+							<input type="button" value="Bring layer down" onclick="layerDown();" />
+                        </div>
+                    </div>						
                 </div>
                 <div id="container" class="outerContent">
                         <div id="previewArea" class="appElement" style="width: 150px; height: 50px;">
 							<div class="innerBox" id="test"><span class="newText">CSS3.0 Transform</span></div>
 						</div>
 						<div id="previewArea1" class="appElement" style="width: 150px; height: 150px;">				
-							<div class="innerBox"><img src="https://cloud.githubusercontent.com/assets/11660388/11772303/3b089eca-a256-11e5-90a1-92c093e9e110.png"/></div>
+							<div class="innerBox"><img src="images/earth.png"/></div>
 						</div>
                 </div>
 				<div class="fontfaceview"></div>
