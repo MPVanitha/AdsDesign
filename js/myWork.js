@@ -5,8 +5,12 @@
 $(document).ready(function() {
 	
 	$("#imgInp").change(function(){
-		readURL(this);
+		addImage(this);
 	});
+	
+	$("#backImgInp").change(function(){
+		changeBackgroundImg(this);
+	});	
 	        
     var fncssTransform = function() {
 		loadContainer = $("#transformLoad");
@@ -439,11 +443,7 @@ function addText() {
 };
 
 function editText() {
-	$('*').filter(function() {
-		if($(this).css("border") === '1px solid rgb(255, 192, 203)' || $(this).css("borderTopColor") == "rgb(255, 0, 0)") {
-			$(this).find('.newText').html(addLineBreaks($('#adText').val()));
-		}
-	});
+	PreviewArea.find('.newText').html(addLineBreaks($('#adText').val()));
 };
 
 function addLineBreaks(text) {
@@ -454,7 +454,7 @@ function removeLineBreaks(text) {
 	return text.replace(/<br *\/?>/gi, '\n');
 }
 
-function readURL(input) {
+function addImage(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
             
@@ -464,4 +464,23 @@ function readURL(input) {
         }         
         reader.readAsDataURL(input.files[0]);
     }
+}
+
+function changeBackgroundImg(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+            
+        reader.onload = function (e) {
+			$(".outerContent").css("background","url('"+e.target.result+"') repeat");
+        }         
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function layerUp() {
+	alert("yet to do");
+}
+
+function layerDown() {
+	alert("yet to do");
 }
