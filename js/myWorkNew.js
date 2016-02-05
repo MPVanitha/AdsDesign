@@ -12,16 +12,16 @@ var layerCounter = 0;
 $(document).ready(function() {
     disableBtns();
 
-    $('.image-editor').cropit({  width:100, height:100 });
+    //$('.image-editor').cropit({  width:100, height:100 });
 
-    $('#bkColorPalatte').colorpicker({defaultPalette:'web'}).on('change.color', function(evt, color){
+    /*$('#bkColorPalatte').colorpicker({defaultPalette:'web'}).on('change.color', function(evt, color){
         $(".outerContent").css({"background-color":color});
         $('#bkColorVal').val(color);
     });
     $('#fontColorPalatte').colorpicker({defaultPalette:'web'}).on('change.color', function(evt, color){
         previewArea.find('.newText').css({"color":color});
         previewArea.find('.fontColVal').val(color);
-    });
+    });*/
 
     $("#imgUpload").on('change', (function (e) {
         $('#uploadImage').submit();
