@@ -3,61 +3,214 @@
 <head>
 <link href="style/style.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="style/jquery.ui.resizable.css" />
+<!--link rel="stylesheet" type="text/css" href="style/jquery.Jcrop.css" />
+<link rel="stylesheet" type="text/css" href="style/colorpicker.css" /-->
+<link rel="stylesheet" type="text/css" href="style/bootstrap.css" />
 
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="js/jquery.ui.rotatable.js"></script>
 <script type="text/javascript" src="js/jquery.ui.slider.js"></script>
-<script type="text/javascript" src="js/html2canvas.js"></script>
-<script type="text/javascript" src="js/myWork.js"></script>
+<script type="text/javascript" src="js/myWorkNew.js"></script>
+<!--script type="text/javascript" src="js/jcrop.js"></script>
+<script type="text/javascript" src="js/ckeditor.js"></script>
+<script type="text/javascript" src="js/textEditor.js"></script>
+<script type="text/javascript" src="js/colorpicker.js"></script>
+<script type="text/javascript" src="js/component.js"></script-->
 </head>
 <body>
 	<div class="main_wrapper">
-		<div id="wrapper">
-			<h2>Click on the element to drag !</h2>
-			<section id="content" class="clearfix">
-        		<div class="narrowcolumn" style="display:inline-block;white-space:nowrap;">
-                	<div class="container">
-                    	<h2>CSS3 Styles</h2>
-						</br>
-                        <div class="subContainer eheight clearfix" style="text-align:center;">                        	
-                            <div id="transformLoad"></div></br>
-							<input type="button" value="Save as image" id="btnSave" />											
-                        </div>			
-                    </div>	
-					<div class="container">
-                    	<h2>Font</h2>
-                        <div class="subContainer eheight clearfix" style="text-align:center;">                        	
-                            <div id="fontLoad"></div>	
-							<br>							
-							<textarea id="adText" rows="10" placeholder="Please add your text here"></textarea></br></br>
-							<input type="button" id="adTextButton" class="fontButton" onclick="addText();" value="Add" />
-							<input type="button" id="editTextButton" class="fontButton" onclick="editText();" value="Update" />
-                        </div>
-                    </div>		
-					<div class="container">
-                    	<h2>Layers</h2>
-                        <div class="subContainer eheight clearfix" style="text-align:center;">     
-							Add Image to design : <input type='file' id="imgInp" /> </br><br>	
-							Change Background Image : <input type='file' id="backImgInp" /> </br><br>
-							<input type="button" value="Bring layer up" onclick="layerUp();" /> &nbsp;&nbsp;&nbsp;
-							<input type="button" value="Bring layer down" onclick="layerDown();" />
-                        </div>
-                    </div>						
+    <div class="container">
+        <div class="row top-buffer center">
+            <div class="col-sm-12">
+                <button type="button" class="btn btn-primary" id="newDesignBtn" onclick="newDesign();">New Design</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" id="changeSizeBtn" disabled>Change Size</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" id="addTextBtn">Add Text</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" id="addImageBtn">Add Image</button>&nbsp;&nbsp;&nbsp;
+                <form enctype="multipart/form-data" id="uploadImage" method="POST" class="hide">
+                    <input name="userfile" type="file" id="imgUpload" accept="image/*" /></br></br>
+                </form>
+                <button type="button" class="btn btn-primary" id="bkImg">Background Image</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" id="bkColorBtn">Background Color</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" id="saveBtn">Save</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" id="discardBtn">Discard</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" id="generateBtn" onclick="submitImage();">Generate PDF</button>&nbsp;&nbsp;&nbsp;
+                <form id="pdfForm" action="" method="post" target="_blank" class="hide">
+                    <input type="hidden" value="" id="htmlContent" name="htmlContent"/>
+                </form>
+            </div>
+        </div>
+        <div class="row top-buffer center hideDiv" id="sizeBox">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-12"><img class="pull-right cancelImg" id="sizeCloseBtn" src="img/CancelRed.png"></div>
                 </div>
-                <div id="container" class="outerContent">
-                        <div id="previewArea" class="appElement" style="width: 150px; height: 50px;">
-							<div class="innerBox" id="test"><span class="newText">CSS3.0 Transform</span></div>
-						</div>
-						<div id="previewArea1" class="appElement" style="width: 150px; height: 150px;">				
-							<div class="innerBox"><img src="https://cloud.githubusercontent.com/assets/11660388/11772303/3b089eca-a256-11e5-90a1-92c093e9e110.png"/></div>
-						</div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <img src="img/rel54x8-dec.gif" onclick="changeDesignSize('54*32.7');"><br>
+                        <div class="well well-sm top-buffer1"><span class="sizeText">Full page</span><br>Height x Width:<br>54cm x 8col<br>(54cm x 32.7cm)</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <img src="img/rel27x8-dec.gif" onclick="changeDesignSize('27*32.7');">
+                        <div class="well well-sm top-buffer1"><span class="sizeText">Half page</span><br>Height x Width:<br>27cm x 8col<br>(27cm x 32.7cm)</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <img src="img/rel27x4-dec.gif" onclick="changeDesignSize('27*16.2');">
+                        <div class="well well-sm top-buffer1"><span class="sizeText">Quarter page</span><br>Height x Width:<br>27cm x 4col<br>(27cm x 16.2cm)</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <img src="img/rel20x4-dec.gif" onclick="changeDesignSize('20*16.2');">
+                        <div class="well well-sm top-buffer1"><span class="sizeText">Small Ad</span><br>Height x Width:<br>20cm x 4col<br>(20cm x 16.2cm)</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <img src="img/rel16x3-dec.gif" onclick="changeDesignSize('16*12');">
+                        <div class="well well-sm top-buffer1"><span class="sizeText">Small Ad</span><br>Height x Width:<br>16cm x 3col<br>(16cm x 12cm)</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <img src="img/rel16x2-dec.gif" onclick="changeDesignSize('16*7.9');">
+                        <div class="well well-sm top-buffer1"><span class="sizeText">Small Ad</span><br>Height x Width:<br>16cm x 2col<br>(16cm x 7.9cm)</div>
+                    </div>
                 </div>
-				<div class="fontfaceview"></div>
-			</section>				
-			<div id="canvas"></div>
-		</div>		
-	</div>
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-sm-2 center" id="layerBox">
+                <div class="well well-sm" id="addLayers"><b>Layers</b></div>
+            </div>
+            <div class="col-sm-7" id="designBox">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="adHtml">
+                            <div id="desContainer" class="outerContent contentBorder">
+								<div class="appElement newImage ui-draggable ui-draggable-handle" style="position: relative; left: 0px; right: 0px; z-index: 1;"><div class="innerBox" style="border: 3px solid red;"><img class="designImg" src="https://cloud.githubusercontent.com/assets/11660388/11772303/3b089eca-a256-11e5-90a1-92c093e9e110.png"></div><input type="hidden" class="rotateVal" value="0"><input type="hidden" class="scaleVal" value="0"><input type="hidden" class="newImgVal" id="layer_1"></div>						
+							</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row top-buffer editBlk hideDiv" id="ckEditor">
+                    <div class="col-sm-12"><div id="editor" name="editor"></div></div>
+                </div>
+                <div class="row top-buffer editBlk hideDiv" id="adTextButton">
+                    <div class="col-sm-12 center">
+                        <input type="button" class="btn btn-primary" onclick="addText();" value="Add" />
+                    </div>
+                </div>
+                <div class="row top-buffer center editBlk hideDiv" id="editTextButton">
+                    <div class="col-sm-12 center">
+                        <input type="button" class="btn btn-primary" onclick="editText();" value="Update" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 center" id="propBox">
+                <div class="well well-sm">
+                    <b>Properties</b>
+                    <div class="row top-buffer1 hideDiv" id="bkColorBox">
+                        <div class="col-sm-12">
+                            <div id="bkColorPalatte"></div>
+                            <input type="hidden" id="bkColorVal" value="0" />
+                        </div>
+                    </div>
+                    <div class="row top-buffer1" id="commonStyleBox">
+                        <div class="col-sm-12">
+                            <div class="row center">
+                                <div class="col-sm-12">
+                                    <ul class="formData"  id="CSStransform">
+                                        <li class="rotate showall">
+                                            <label>Rotate <span id="test"></span></label>
+                                            <div id="Rotate" class="slider_mozz sliderImg"></div>
+                                        </li>
+                                        <li class="scale showall">
+                                            <label>Scale</label>
+                                            <div id="Scale" class="slider_mozz sliderImg"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row top-buffer">
+                                <div class="col-sm-6"><input type="button" class="btn btn-primary" value="Bring Front" onclick="layerUp();" /></div>
+                                <div class="col-sm-6"><input type="button" class="btn btn-primary" value="Send Back" onclick="layerDown();" /></div>
+                            </div>
+                            <div class="row top-buffer center">
+                                <div class="col-sm-6"><input type="button" class="btn btn-danger" value="Delete" onclick="deleteLayer();" /></div>
+                                <div class="col-sm-6"><input type="button" class="btn btn-danger" value="Delete All" onclick="deleteAll();" /></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row top-buffer1 hideDiv center" id="imgStyleBox">
+                        <div class="col-sm-12"><input type="button" class="btn btn-primary" value="Crop" onclick="openCropEdit();" /></div>
+                    </div>
+                    <div class="row top-buffer1 hideDiv" id="fontStyleBox">
+                        <div class="col-sm-12">
+                            <ul class="formData"  id="FontFace">
+                                <li>
+                                    <label>Font</label>
+                                    <select name="SelectFont" class="editThisfont" id="SelectFont">
+                                        <option value="Arial">Arial</option>
+                                        <option value="Times New Roman">Times New Roman</option>
+                                        <option value="verdana">Verdana</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <label>Font Size <span id="test"></span></label>
+                                    <div id="FontSize" class="slider_mozz"></div>
+                                </li>
+                                <li>
+                                    <label>Font Style</label>
+                                    <select name="FontStyle" class="editThis" id="fontStyle">
+                                        <option value="normal">Normal</option>
+                                        <option value="italic">Italic</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <label>Font Weight</label>
+                                    <select name="FontWeight" class="editThis" id="fontWeight">
+                                        <option value="normal">Normal</option>
+                                        <option value="bold">Bold</option>
+                                        <option value="900">Bolder</option>
+                                    </select>
+                                </li>
+                            </ul>
+                            <div class="center"><b>Font Color</b></div> <div id="fontColorPalatte"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal"></div>
+<div id="preview" class="previewBlock">
+    <div class="buttons">
+        <form action="" method="post" id="cropForm">
+            <input type="hidden" id="x1" name="x1" />
+            <input type="hidden" id="y1" name="y1" />
+            <input type="hidden" id="w" name="w" />
+            <input type="hidden" id="h" name="h" />
+            <input type="hidden" id="fileName" name="fileName" />
+            <input type="button" value="Crop" class="btn btn-large btn-inverse ok" onclick=""/>&nbsp;&nbsp;&nbsp;
+            <input type="button" value="Cancel" class="btn btn-large btn-inverse cancel" onclick="closePreview('preview');" />
+        </form>
+    </div>
+</div>
+<div id="bkImgpreview" class="previewBlock">
+    <div class="image-editor">
+        <input type="file" class="cropit-image-input" style="display: none">
+        <div class="cropit-image-preview"></div>
+        <div class="image-size-label">
+            <table width="100%">
+                <tr><td align="center">Resize image</td></tr>
+                <tr><td align="center"><input type="range" class="cropit-image-zoom-input"></td></tr>
+            </table>
+
+            <br><br><br>
+        </div>
+    </div>
+    <div class="buttons">
+        <input type="button" value="Upload" class="btn btn-large btn-inverse ok export"/>&nbsp;&nbsp;&nbsp;
+        <input type="button" value="Cancel" class="btn btn-large btn-inverse cancel" onclick="closePreview('bkImgpreview');" />
+    </div>
+</div>
+<div class="hideDiv" id="tempHtml"></div>
 
 
 </body>
